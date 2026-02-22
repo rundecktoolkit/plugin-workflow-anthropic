@@ -1,0 +1,50 @@
+[ {
+  "defaultTab" : "nodes",
+  "description" : "",
+  "executionEnabled" : true,
+  "id" : "86c3e23b-3db8-45fc-86ac-5c9c860c638e",
+  "loglevel" : "INFO",
+  "name" : "Anthropic Example",
+  "nodeFilterEditable" : false,
+  "options" : [ {
+    "label" : "Enter English Phrase",
+    "name" : "text"
+  } ],
+  "plugins" : {
+    "ExecutionLifecycle" : { }
+  },
+  "scheduleEnabled" : true,
+  "sequence" : {
+    "commands" : [ {
+      "configuration" : {
+        "apiKeyPath" : "keys/project/plugin/anthropic_key",
+        "apiUrl" : "https://api.anthropic.com",
+        "maxTokens" : "1024",
+        "model" : "claude-opus-4-6",
+        "prompt" : "Translate this to French ${option.text}. ",
+        "systemMessage" : "No Markdown. Just text"
+      },
+      "description" : "Translate",
+      "nodeStep" : false,
+      "plugins" : {
+        "LogFilter" : [ {
+          "config" : {
+            "extraQuotes" : "false",
+            "filter" : ".content",
+            "logData" : "true",
+            "prefix" : "content"
+          },
+          "type" : "json-mapper"
+        } ]
+      },
+      "type" : "anthrophic-query"
+    }, {
+      "description" : "Demonstrate Content",
+      "exec" : "echo ${data.content}"
+    } ],
+    "keepgoing" : false,
+    "strategy" : "node-first"
+  },
+  "user" : "justyn",
+  "uuid" : "86c3e23b-3db8-45fc-86ac-5c9c860c638e"
+} ]
