@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="src/main/resources/resources/icon.png" alt="Anthropic Plugin" width="80"/>
-</p>
-
 <h1 align="center">Rundeck Anthropic Query Plugin</h1>
 
 <p align="center">
@@ -40,6 +36,10 @@ This plugin adds an **Anthropic Query** workflow step to Rundeck, enabling you t
 |----------|---------|
 | Rundeck Community | 3.x, 4.x, 5.x |
 | Runbook Automation (Self-Hosted) | 4.x, 5.x |
+
+## Prerequisites
+
+To use JSON filtering with this plugin, install the [JQ JSON Log Filter](https://github.com/rundeck-plugins/jq-json-logfilter) plugin.
 
 ## Installation
 
@@ -104,73 +104,16 @@ The plugin exports data for use in subsequent steps:
 
 ### Using with Log Filters
 
-Extract specific fields using the **JSON Mapper** log filter:
+Extract specific fields using the **JQ JSON Log Filter**:
 
 1. Add a log filter to the Anthropic Query step
-2. Select **json-mapper**
-3. Configure:
-   - **Filter:** `.content`
-   - **Prefix:** `result`
-4. Access in later steps: `${data.result}`
+2. Select **jq-json-logfilter**
+3. Configure the filter expression
+4. Access extracted values in later steps
 
 ## Examples
 
-> **Quick Start:** Import the ready-to-use [example job](examples/Anthropic_Example.json) into your project.
-
-### Basic Translation
-
-```json
-{
-  "name": "AI Translation",
-  "options": [
-    { "name": "text", "label": "Text to translate" }
-  ],
-  "sequence": {
-    "commands": [
-      {
-        "type": "anthrophic-query",
-        "configuration": {
-          "apiKeyPath": "keys/project/anthropic/api_key",
-          "prompt": "Translate to French: ${option.text}",
-          "systemMessage": "Respond with plain text only."
-        }
-      },
-      {
-        "exec": "echo \"Translation: ${data.anthropic_content}\""
-      }
-    ]
-  }
-}
-```
-
-### Log Analysis
-
-```json
-{
-  "type": "anthrophic-query",
-  "configuration": {
-    "apiKeyPath": "keys/project/anthropic/api_key",
-    "model": "claude-3-haiku-20240307",
-    "maxTokens": "2048",
-    "prompt": "Analyze this error log and suggest fixes:\n\n${data.errorLog}",
-    "systemMessage": "You are a DevOps engineer. Be concise."
-  }
-}
-```
-
-### Incident Summary
-
-```json
-{
-  "type": "anthrophic-query",
-  "configuration": {
-    "apiKeyPath": "keys/project/anthropic/api_key",
-    "model": "claude-3-opus-20240229",
-    "prompt": "Summarize this incident for a status page:\n\n${data.incidentDetails}",
-    "temperature": "0.3"
-  }
-}
-```
+Import the ready-to-use [example job](examples/Anthropic_Example.json) into your project.
 
 ## Available Models
 
