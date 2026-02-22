@@ -115,6 +115,8 @@ Extract specific fields using the **JSON Mapper** log filter:
 
 ## Examples
 
+> **Quick Start:** Import the ready-to-use [example job](examples/Anthropic_Example.json) into your project.
+
 ### Basic Translation
 
 ```json
