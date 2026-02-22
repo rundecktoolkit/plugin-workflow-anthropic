@@ -34,7 +34,7 @@ This plugin adds an **Anthropic Query** workflow step to Rundeck, enabling you t
 
 | Platform | Version |
 |----------|---------|
-| Rundeck Community | 3.x, 4.x, 5.x |
+| Rundeck Community | 4.x, 5.x |
 | Runbook Automation (Self-Hosted) | 4.x, 5.x |
 
 ## Prerequisites
