@@ -13,43 +13,49 @@
   <a href="#configuration">Configuration</a> •
   <a href="#usage">Usage</a> •
   <a href="#examples">Examples</a> •
-  <a href="#building">Building</a>
+  <a href="#support">Support</a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Rundeck-3.x%20%7C%204.x%20%7C%205.x-blue" alt="Rundeck Compatibility"/>
-  <img src="https://img.shields.io/badge/Java-11%2B-orange" alt="Java 11+"/>
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License"/>
+  <img src="https://img.shields.io/badge/Rundeck-Community-5C9E3D?logo=rundeck&logoColor=white" alt="Rundeck Community"/>
+  <img src="https://img.shields.io/badge/Runbook_Automation-Self_Hosted-0F1E57?logo=pagerduty&logoColor=white" alt="Runbook Automation Self-Hosted"/>
+  <img src="https://img.shields.io/badge/License-MIT-blue" alt="MIT License"/>
 </p>
 
 ---
 
 ## Overview
 
-This plugin adds an **Anthropic Query** workflow step to Rundeck, enabling you to:
+This plugin adds an **Anthropic Query** workflow step to Rundeck, enabling you to leverage AI-powered automation in your runbooks.
 
-- Send prompts to Anthropic AI models directly from your automation jobs
-- Use AI-generated responses in subsequent workflow steps
-- Configure model parameters for fine-tuned control
-- Securely manage API credentials via Rundeck Key Storage
+**Key Features:**
+- Send prompts to Anthropic AI models directly from workflow steps
+- Use AI-generated responses in subsequent job steps
+- Fine-tune model behavior with temperature, token limits, and system messages
+- Secure credential management via Rundeck Key Storage
+
+## Compatibility
+
+| Platform | Version |
+|----------|---------|
+| Rundeck Community | 3.x, 4.x, 5.x |
+| Runbook Automation (Self-Hosted) | 4.x, 5.x |
 
 ## Installation
 
-### From Release
+### Recommended: Via UI
 
 1. Download the latest JAR from [Releases](../../releases)
-2. Copy to your Rundeck server:
-   ```bash
-   cp anthrophic-query-*.jar $RDECK_BASE/libext/
-   ```
-3. Restart Rundeck or reload plugins
+2. In Rundeck, navigate to **System Menu** → **Plugins** → **Upload Plugin**
+3. Select the downloaded JAR file
+4. The plugin is immediately available—no restart required
 
-### From Source
+### Alternative: Manual Installation
 
 ```bash
-./gradlew build
-cp build/libs/anthrophic-query-*.jar $RDECK_BASE/libext/
+cp anthrophic-query-*.jar $RDECK_BASE/libext/
 ```
+Restart Rundeck after manual installation.
 
 ## Configuration
 
@@ -109,7 +115,7 @@ Extract specific fields using the **JSON Mapper** log filter:
 
 ## Examples
 
-### Basic Translation Job
+### Basic Translation
 
 ```json
 {
@@ -150,7 +156,7 @@ Extract specific fields using the **JSON Mapper** log filter:
 }
 ```
 
-### Code Review
+### Incident Summary
 
 ```json
 {
@@ -158,7 +164,7 @@ Extract specific fields using the **JSON Mapper** log filter:
   "configuration": {
     "apiKeyPath": "keys/project/anthropic/api_key",
     "model": "claude-3-opus-20240229",
-    "prompt": "Review this code for security issues:\n\n${data.codeContent}",
+    "prompt": "Summarize this incident for a status page:\n\n${data.incidentDetails}",
     "temperature": "0.3"
   }
 }
@@ -174,7 +180,7 @@ Extract specific fields using the **JSON Mapper** log filter:
 
 See [Anthropic Documentation](https://docs.anthropic.com/en/docs/about-claude/models) for the complete model list.
 
-## Building
+## Building from Source
 
 ### Requirements
 
@@ -184,25 +190,19 @@ See [Anthropic Documentation](https://docs.anthropic.com/en/docs/about-claude/mo
 ### Commands
 
 ```bash
-# Build
-./gradlew build
-
-# Clean build
-./gradlew clean build
-
-# Run tests
-./gradlew test
+./gradlew build           # Build JAR
+./gradlew clean build     # Clean and rebuild
+./gradlew test            # Run tests
 ```
 
-The built JAR is output to `build/libs/`.
+Output: `build/libs/anthrophic-query-*.jar`
 
-## Contributing
+## Support
 
-Contributions are welcome! Please:
+- **Issues:** [GitHub Issues](../../issues)
+- **Pull Requests:** Contributions welcome!
 
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
+> **Disclaimer:** This plugin is provided "as is" without warranty of any kind, express or implied. Use at your own risk. See [LICENSE](LICENSE) for details.
 
 ## License
 
